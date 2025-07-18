@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage with Hamburger Menu</title>
+    <style>
+        /* -- HAMBURGER MENU -- */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .dark-mode {
+            background-color: #1f1f1f;
+            color: #f2f2f2;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4289c2;
+            padding: 15px;
+            color: white;
+        }
+
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #4289c2;
+            color: white;
+            padding: 20px;
+            box-shadow: -4px 0 10px rgba(0, 0, 0, 0.3);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .menu.show {
+            display: block;
+            transform: translateX(0);
+        }
+
+        .menu h3 {
+            margin-top: 0;
+        }
+
+        .menu label {
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .dark-mode .calculator {
+            background-color: #333;
+            color: #f2f2f2;
+        }
+
+        input[type="number"], select {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======== HAMBURGER MENU SECTION ======== -->
+    <div class="navbar">
+        <h1>Homepage</h1>
+        <span class="menu-icon" onclick="toggleMenu()">☰</span>
+    </div>
+
+    <div class="menu" id="menu">
+        <span class="menu-icon" style="font-size: 30px; cursor: pointer;" onclick="closeMenu()">x</span>
+        <h3>Settings</h3>
+        <label>
+            <input type="checkbox" id="darkToggle" onchange="toggleDarkMode()"> Dark Mode
+        </label>
+    </div>
+
+    <script>
+        // ======== HAMBURGER MENU FUNCTIONS ========
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('show');
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // ======== CALCULATOR FUNCTIONS ========
+        function calculate() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const operation = document.getElementById('operation').value;
+            let result;
+
+            if (isNaN(num1) || isNaN(num2)) {
+                result = "Please enter valid numbers.";
+            } else {
+                switch (operation) {
+                    case "add":
+                        result = num1 + num2;
+                        break;
+                    case "subtract":
+                        result = num1 - num2;
+                        break;
+                    case "multiply":
+                        result = num1 * num2;
+                        break;
+                    case "divide":
+                        result = num2 !== 0 ? (num1 / num2) : "Cannot divide by 0";
+                        break;
+                    default:
+                        result = "Invalid Operation";
+                }
+            }
+            document.getElementById('result').innerHTML = "Result: " + result;
+        }
+    </script>
+
+    <script>
+        function closeMenu() {
+            document.getElementById('menu').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
